@@ -15,6 +15,6 @@ def main(): Unit & Impure =
     let solutions = List.range(0, cols) |>
         List.foldLeft(
             (previous, col) ->
-                previous |> List.map(partialSolutions(cols, col)) |> List.flatten,
+                previous |> List.flatMap(partialSolutions(cols, col)),
             List.point(Nil));
     println(List.length(solutions))
