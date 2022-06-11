@@ -13,8 +13,6 @@ def partialSolutions(size: Int32, col: Int32, previous: List[(Int32, Int32)]): L
 def main(): Unit & Impure =
     let cols = 8;
     let solutions = List.range(0, cols) |>
-        List.foldLeft(
-            (previous, col) ->
-                previous |> List.flatMap(partialSolutions(cols, col)),
+        List.foldLeft((previous, col) -> List.flatMap(partialSolutions(cols, col), previous),
             List.point(Nil));
     println(List.length(solutions))
