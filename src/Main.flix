@@ -1,6 +1,6 @@
 type alias Position = (Int32, Int32)
 
-def partialSolutions(size: Int32, col: Int32, previous: List[Position]): List[List[Position]] & Impure =
+def partialSolutions(size: Int32, col: Int32, previous: List[Position]): List[List[Position]] =
     let queens = project previous into Queen;
     let rows = project List.range(0, size) into Row;
     let rules = #{
@@ -8,7 +8,6 @@ def partialSolutions(size: Int32, col: Int32, previous: List[Position]): List[Li
         Possible(col, y2) :- Row(y2), not Forbidden(y2).
     };
     query queens, rows, rules select (x, y) from Possible(x, y) |> 
-        Array.toList |>
         List.map(candidate -> candidate :: previous) 
 
 def main(): Unit & Impure =
